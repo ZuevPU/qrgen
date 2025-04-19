@@ -1,5 +1,5 @@
 // 🔗 URL Google Apps Script Web App
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzQ-drrXDEwbhrZ6UN7IE26howT2NDN52yhzhjWssR-QqRIiyL-S_aVb4mtiqSS2VuVcg/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzQ-drrXDEwbhrZ6UN7IE26howT2NDN52yhzhjWssR-QqRIiyL-S_aVb4mtiqSS2VuVcg/exec?action=nextToken';
 
 // 🎯 DOM-элементы
 const qrcodeBox  = document.getElementById('qrcode');
