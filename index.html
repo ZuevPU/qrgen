@@ -2,18 +2,71 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>QR-Генератор</title>
+  <title>QR-Генератор · MentorTool</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: sans-serif;
+      display: grid;
+      place-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #f8f9fa;
+    }
+
+    #wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background: white;
+    }
+
+    #qrcode canvas {
+      border-radius: 8px;
+      padding: 8px;
+      background: #fff;
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+    }
+
+    button {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #link {
+      font-size: 0.85rem;
+      color: #555;
+      word-break: break-all;
+      text-align: center;
+      max-width: 280px;
+    }
+  </style>
 </head>
 <body>
-  <div id="qrcode"></div>
-  <div id="link"></div>
-  <button id="refresh">Сгенерировать новый</button>
+  <div id="wrapper">
+    <div id="qrcode">Загрузка QR…</div>
+    <div id="link">Ожидание токена…</div>
+    <button id="refresh">⟳ Сгенерировать новый QR</button>
+  </div>
 
   <!-- QR-библиотека -->
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-  
-  <!-- Ваш основной скрипт -->
+
+  <!-- Основной скрипт -->
   <script src="main.js"></script>
 </body>
 </html>
