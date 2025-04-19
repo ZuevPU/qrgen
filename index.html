@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>MentorTool · QR‑код</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body{display:grid;place-items:center;height:100vh;font-family:sans-serif}
+    #wrapper{display:flex;flex-direction:column;align-items:center;gap:.75rem}
+    #qrcode canvas{border:8px solid #f1f1f1;border-radius:12px}
+    button{padding:.6rem 1.2rem;border:none;border-radius:8px;font-size:1rem;cursor:pointer}
+  </style>
+</head>
+<body>
+  <div id="wrapper">
+    <div id="qrcode">…загрузка…</div>
+    <small id="link"></small>
+    <button id="refresh">⟳ Сгенерировать заново</button>
+  </div>
+
+  <script src="qr.min.js"></script>
+  <script src="main.js" type="module"></script>
+</body>
+</html>
