@@ -1,21 +1,23 @@
-// 🔗 URL Google Apps Script Web App (проверь, что это актуальный /exec!)
+// 🔗 URL Google Apps Script Web App
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzQ-drrXDEwbhrZ6UN7IE26howT2NDN52yhzhjWssR-QqRIiyL-S_aVb4mtiqSS2VuVcg/exec';
 
 // 🎯 DOM-элементы
-const qrcodeBox = document.getElementById('qrcode');
-const linkBox   = document.getElementById('link');
-const btnRefresh= document.getElementById('refresh');
+const qrcodeBox  = document.getElementById('qrcode');
+const linkBox    = document.getElementById('link');
+const btnRefresh = document.getElementById('refresh');
 
 let currentToken = null;
 let pollId = null;
 
-// 🔘 Обработка кнопки "Сгенерировать заново"
+// 🔘 Событие на кнопку
 btnRefresh.addEventListener('click', () => getNewToken(true));
 
-// 🟢 Первая загрузка
+// 🚀 При загрузке страницы
 getNewToken();
 
-// 🧠 Генерация нового токена и QR-кода
+/**
+ * 📦 Получение нового токена и отрисовка QR
+ */
 async function getNewToken(forced = false) {
   clearPolling();
   showLoadingState();
@@ -24,20 +26,24 @@ async function getNewToken(forced = false) {
     const res = await fetch(`${SCRIPT_URL}?action=nextToken${forced ? '&forced=1' : ''}`);
     if (!res.ok) throw new Error(`Ошибка ${res.status}`);
 
-    const { token, url } = await res.json();
-    currentToken = token;
+    const data = await res.json();
+    if (!data.token || !data.url) throw new Error('Неверный ответ сервера');
 
-    renderQR(url);
-    linkBox.textContent = url;
+    currentToken = data.token;
+    renderQR(data.url);
+    linkBox.textContent = data.url;
+
     startPolling();
   } catch (err) {
-    console.error('Ошибка получения токена:', err);
-    linkBox.textContent = '❌ Не удалось получить QR. Проверь соединение.';
-    qrcodeBox.innerHTML = '❌';
+    console.error('❌ Ошибка при получении токена:', err);
+    linkBox.textContent = '❌ Не удалось получить QR-код. Проверь соединение.';
+    qrcodeBox.innerHTML = '🚫';
   }
 }
 
-// 🖼 Отрисовка QR-кода
+/**
+ * 🖼 Генерация QR-кода
+ */
 function renderQR(url) {
   qrcodeBox.innerHTML = '';
   new QRCode(qrcodeBox, {
@@ -48,7 +54,9 @@ function renderQR(url) {
   });
 }
 
-// 🟡 Начать проверку использования токена
+/**
+ * 🔄 Проверка, использован ли токен
+ */
 function startPolling() {
   pollId = setInterval(async () => {
     try {
@@ -57,16 +65,18 @@ function startPolling() {
 
       const { used } = await res.json();
       if (used) {
-        console.log('✅ Токен использован, обновляю QR');
-        getNewToken(); // перегенерация нового QR
+        console.log('✅ Токен использован, генерирую новый');
+        getNewToken();
       }
     } catch (err) {
-      console.error('Ошибка проверки токена:', err);
+      console.error('❌ Ошибка при проверке токена:', err);
     }
   }, 4000);
 }
 
-// 🔁 Очистить текущий polling
+/**
+ * 🧹 Остановка опроса
+ */
 function clearPolling() {
   if (pollId) {
     clearInterval(pollId);
@@ -74,7 +84,9 @@ function clearPolling() {
   }
 }
 
-// ⏳ Отображение "загрузки"
+/**
+ * ⏳ Отображение состояния загрузки
+ */
 function showLoadingState() {
   qrcodeBox.innerHTML = '⏳ Генерация QR…';
   linkBox.textContent = '';
