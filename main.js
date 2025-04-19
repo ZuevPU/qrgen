@@ -1,4 +1,4 @@
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwiheKzddCdSIiOSnXupkSvoUt0REPql3UW1HS9qP7n52Y85xVGeL5K_7RYgLhYoklh/exec'; // «Веб‑приложение» Apps Script
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzQ-drrXDEwbhrZ6UN7IE26howT2NDN52yhzhjWssR-QqRIiyL-S_aVb4mtiqSS2VuVcg/exec'; // «Веб‑приложение» Apps Script
 const qrcodeBox = document.getElementById('qrcode');
 const linkBox   = document.getElementById('link');
 const btnRefresh= document.getElementById('refresh');
